@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>HTML5 Canvas</title>
+</head>
+<body>
+    <canvas id="draw" width="800" height="800"></canvas>
+    <script>
+        const canvas = document.querySelector('#draw');
+        const ctx = canvas.getContext('2d'); //方法返回一个用于在画布上绘图的环境,2d为绘制类型，目前只有2d
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        ctx.strokeStyle = '#BADA55';  //画笔颜色
+        ctx.lineJoin = 'round';       //当两条交汇时，创建圆形边角
+        ctx.lineCap = 'round';        //绘制圆形的结束线帽
+        ctx.lineWidth = 100;          //用宽度为 100 像素的线条来绘制矩形
+        // ctx.globalCompositeOperation = 'multiply';
+        let isDrawing = false;
+        let lastX = 0;
+        let lastY = 0;
+        let hue = 0;
+        let direction = true;
+
+        function draw(e) {
+            if (!isDrawing) return; // stop the fn from running when they are not moused down
+            console.log(e);
+            ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`; //hsl(H,S,L) H:色调（0-360）S：饱和度（0.0%-100.0%）L:亮度（0.0%-100%）
+            ctx.beginPath();   //开始绘制
+            // start from
+            ctx.moveTo(lastX, lastY);   //开始位置
+            // go to
+            ctx.lineTo(e.offsetX, e.offsetY);  //结束位置
+            ctx.stroke();   //绘制已定义路径
+            [lastX, lastY] = [e.offsetX, e.offsetY];
+            hue++;
+            if (hue >= 360) {
+                hue = 0;
+            }
+            if (ctx.lineWidth >= 100 || ctx.lineWidth <= 1) {
+                direction = !direction;
+            }
+            if (direction) {
+                ctx.lineWidth++;
+            } else {
+                ctx.lineWidth--;
+            }
+        }
+        canvas.addEventListener('mousedown', (e) => {
+            isDrawing = true;
+            [lastX, lastY] = [e.offsetX, e.offsetY];
+        });
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseup', () => isDrawing = false);
+        canvas.addEventListener('mouseout', () => isDrawing = false);
+    </script>
+
+    <style>
+        html,
+        body {
+            margin: 0;
+        }
+    </style>
+
+</body>
+
+
+</html>
