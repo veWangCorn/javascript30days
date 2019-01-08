@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Console Tricks!</title>
+</head>
+<body>
+    <p onClick="makeGreen()">×BREAK×DOWN×</p>
+</body>
+<script>
+    const dogs = [{ name: 'Snickers', age: 2 }, { name: 'hugo', age: 8 }];
+    function makeGreen() {
+        const p = document.querySelector('p');
+        p.style.color = '#BADA55';
+        p.style.fontSize = '50px';
+    }
+
+    //Regular
+    console.log('Regular')
+    
+    //Interpolated
+    console.log('Hello I am a %s dog','baby')
+    
+    // Styled
+    console.log('%c I am some great text', 'font-size:20px; background:yellow; text-shadow: 5px 5px 0 green')
+
+    //warning!
+    console.warn('warn')
+
+    //error:|
+    console.error('error')
+
+    //Info
+    console.info('info')
+
+    //Testing
+    const p = document.querySelector('p')
+    console.assert(p.classList.contains('ouch'),'this is wrong!')  //没有‘ouch’,报错
+
+    //clearing
+    console.clear();
+
+    // Viewing Dom Elements
+    console.log(p)  //只查看dom节点
+    console.dir(p)  //查看节点属性
+
+    console.clear()
+
+    //grouping together
+    dogs.forEach(dog=>{
+        console.groupCollapsed(`${dog.name}`)
+        console.log(`this is ${dog.name}`)
+        console.log(`${dog.name} is ${dog.age} year old`)
+        console.log(`${dog.name} is ${dog.age * 7} dog year old`)
+        console.groupEnd(`${dog.name}`)
+    })
+
+    //counting 
+    console.count('Wes')
+    console.count('Wes')
+    console.count('steve')
+    console.count('Wes')
+    console.count('Wes')
+
+    //timing
+    console.time('fetching data')
+    fetch('https://api.github.com/users/wesbos').then(res=>res.json()).then(res=>{
+    console.timeEnd('fetching data')
+    console.log(res)
+    })
+
+    //table
+    console.table(dogs)
+</script>
+</html>
