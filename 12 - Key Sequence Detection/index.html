@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Key Detection</title>
+    <script type="text/javascript" src="http://www.cornify.com/js/cornify.js"></script>
+</head>
+<body>
+    
+</body>
+<script>
+//页面上输入‘helloworld’出现特效
+    const pressed = [], //pressed用于存放输入的字符
+    secretCode = 'helloworld'
+    
+    //添加键盘监听事件
+    window.addEventListener('keyup',(e)=>{
+        console.log(e.key)
+        pressed.push(e.key)
+        console.log(pressed)
+        pressed.splice(-secretCode.length - 1 ,pressed.length - secretCode.length) //截取数组,保证最大长度为secretCode的长度
+        console.log(pressed)
+        if(pressed.join('').includes(secretCode)){
+            console.log('Ding')
+            cornify_add();
+        }
+    })
+</script>
+</html>
