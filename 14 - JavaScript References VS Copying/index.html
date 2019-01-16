@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>JS Reference VS Copy</title>
+</head>
+<body>
+    
+</body>
+<script>
+    // start with strings, numbers and booleans
+    // Let's say we have an array
+    const players = ['Wes', 'Sarah', 'Ryan', 'Poppy'];
+    //复制数组、修改数组
+    //slice()
+    const team = players.slice()
+    team[3] = 'Lux'
+    console.log(players,team)
+
+    //concat()
+    const team2 = [].concat(players)
+    team2[3]='Lux2'
+    console.log(players,team2)
+
+    //es6
+    const team3 = [...players]
+    team3[3]='Lux3'
+    console.log(players,team3)
+
+    //from()
+    const team4 = Array.from(players)
+    team4[3]='Lux4'
+    console.log(players,team4)
+    
+    //复制对象，修改对象 
+    const person = {
+      name: 'Wes Bos',
+      age: 80
+    };
+
+    //assign()
+    const captain = Object.assign({},person,{number:99,age:10})
+    console.log(captain)
+
+    //JSON.stringify()
+    const wes = {
+    name: 'Wes',
+    age: 100,
+    social: {
+        twitter: '@wesbos',
+        facebook: 'wesbos.developer'
+    }
+    };
+    const dev = Object.assign({},wes)
+    const dev2 = JSON.parse(JSON.stringify(wes))
+    console.log(wes);
+    dev.name='change'
+    console.log(dev);
+    console.log(dev2);
+    // and think we make a copy:
+    // how do we take a copy instead?
+    // We will hopefully soon see the object ...spread
+    // Things to note - this is only 1 level deep - both for Arrays and Objects. lodash has a cloneDeep method, but you should think twice before using it.
+</script>
+</html>
